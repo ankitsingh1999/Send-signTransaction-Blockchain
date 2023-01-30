@@ -19,13 +19,13 @@ async function main() {
 
     const signedTx = await web3.eth.accounts.signTransaction(transaction, "db0ec29e22b7383271b72476ff9d1223b34fcdff33bb156e4124e97ff1208b7b");
     console.log("signedTx.rawTransaction", signedTx) // Signed the transaction with my private key
-  //   web3.eth.sendSignedTransaction(signedTx.rawTransaction, function(error, hash) {
-  //   if (!error) {
-  //     console.log("🎉 The hash of your transaction is: ", hash, "\n Check Alchemy's Mempool to view the status of your transaction!");
-  //   } else {
-  //     console.log("❗Something went wrong while submitting your transaction:", error)
-  //   }
-  //  });
+    web3.eth.sendSignedTransaction(signedTx.rawTransaction, function(error, hash) {
+    if (!error) {
+      console.log("🎉 The hash of your transaction is: ", hash, "\n Check Alchemy's Mempool to view the status of your transaction!");
+    } else {
+      console.log("❗Something went wrong while submitting your transaction:", error)
+    }
+   });
 }
 
 
