@@ -1,0 +1,71 @@
+package main
+
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
+	"net/http"
+)a
+
+// API call to generate access token
+
+var client_id string = "513529686424-g96tueca4ccsndgnkh13652kqk3mpusa.apps.googleusercontent.com"
+var client_secret string = "82CQQUKuov4vn9HivWaFOuAe"
+var token_url string = "https://oauth2.googleapis.com/token"
+var refresh_token string = "1//0gmyBh1ZVjphdCgYIARAAGBASNwF-L9IrfiHk9VG4Vi0Va8omdgzC2eOtt9F1owQPvM1GU0SXc0LlY9-IFh5beEPDDqV2h6Pq5mI"
+var GOOGLE_SHEETS_BASE_URL = "https://sheets.googleapis.com/v4/spreadsheets"
+
+var payload_ string = "grant_type=refresh_token&client_id=513529686424-g96tueca4ccsndgnkh13652kqk3mpusa.apps.googleusercontent.com&client_secret=82CQQUKuov4vn9HivWaFOuAe"
+var payload__ string = "&refresh_token=1//0gmyBh1ZVjphdCgYIARAAGBASNwF-L9IrfiHk9VG4Vi0Va8omdgzC2eOtt9F1owQPvM1GU0SXc0LlY9-IFh5beEPDDqV2h6Pq5m"
+
+// var headers = {"Content-Type": "application/x-www-form-urlencoded"}
+func main() {
+    payload := payload_ + payload__
+	postBody, _ := json.Marshal(map[string]string{
+		"client_id":     "513529686424-g96tueca4ccsndgnkh13652kqk3mpusa.apps.googleusercontent.com",
+		"client_secret": "82CQQUKuov4vn9HivWaFOuAe",
+		"grant_type":    "refresh_token",
+		"refresh_token": "1//0gmyBh1ZVjphdCgYIARAAGBASNwF-L9IrfiHk9VG4Vi0Va8omdgzC2eOtt9F1owQPvM1GU0SXc0LlY9-IFh5beEPDDqV2h6Pq5m",
+	})
+	responseBody := bytes.NewBuffer(postBody)
+	headers := `{"Content-Type": "application/x-www-form-urlencoded"}`
+	resp, err := http.Post(token_url, headers, payload)
+	if err != nil {
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			fmt.Println((string(body)))
+		}
+	}
+	// fmt.Println((string("Ankit")))
+}
+
+// Code reference in python
+
+// import requests
+
+// client_id = "513529686424-g96tueca4ccsndgnkh13652kqk3mpusa.apps.googleusercontent.com"
+// client_secret = "82CQQUKuov4vn9HivWaFOuAe"
+// token_url = "https://oauth2.googleapis.com/token"
+// refresh_token = "1//0gmyBh1ZVjphdCgYIARAAGBASNwF-L9IrfiHk9VG4Vi0Va8omdgzC2eOtt9F1owQPvM1GU0SXc0LlY9-IFh5beEPDDqV2h6Pq5mI"
+
+// headers = {
+//             'Content-Type': 'application/x-www-form-urlencoded'
+//         }
+// payload = f"grant_type=refresh_token&client_id={client_id}&client_secret={client_secret}"
+// payload += f"&refresh_token={refresh_token}"
+
+// res = requests.post(token_url, data=payload, headers=headers)
+
+// # print(res.json())
+// access_token = res.json()["access_token"]
+
+// url = "https://sheets.googleapis.com/v4/spreadsheets/10SvKOd_rCFEI19o8ZR0R1qWL4j8qlmtfaHlR25FORm0/"
+// headers = {
+//         'Authorization': f'Bearer ya29.a0AX9GBdW2XwnhkTJn5kG3sGd1YQ6ItLIHKwW30L0cAhAuZLp2Fp2RiguzyLFcu2JlV2L4GgorRmOSleunzGoeR37pckCuoBkCeGRm-KVaBkNinz621xLPXmE60-Mq5pKeDtq9zJF0ygOV0XZBRJHMh3dsIei1SY5LoQaCgYKAbYSAQASFQHUCsbCNyDKUtrWgp0M1wIUx0C8Yw016927jKRurUkStrdzmJZwSuA6QGFNS9GtqkmRSIFF9ihea-7nKSMb4nkwmeJi2grMZQAvaPM4SSrJIcZeQUBgTQbVYs4hSXqFaNoR5oH8EAaCgYKAeoSAQASFQHUCsbC2hfnSmW6wP_Qz4jay-ZOTw0169'
+//     }
+
+// res = requests.get(url, headers=headers)
+// print(res.json())
+// # if res.status_code == 200:
+// #     print(res.json())
