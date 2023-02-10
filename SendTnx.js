@@ -17,7 +17,7 @@ async function main() {
      // optional data field to send message or execute smart contract
     };
 
-    const signedTx = await web3.eth.accounts.signTransaction(transaction, "db0ec29e22b7383271b72476ff9d1223b34fcdff33bb156e4124e97ff1208b7b");
+    const signedTx = await web3.eth.accounts.signTransaction(transaction, "");
     console.log("signedTx.rawTransaction", signedTx) // Signed the transaction with my private key
     web3.eth.sendSignedTransaction(signedTx.rawTransaction, function(error, hash) {
     if (!error) {
